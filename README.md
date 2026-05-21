@@ -1,83 +1,37 @@
-# How to Set Up Cursor IDE with Claude Code on Windows
+# Cursor IDE + Claude Code Setup
 
-A beginner-friendly step-by-step guide to installing Cursor IDE and Claude Code.
+## Tools Installed
 
----
+- **Cursor IDE** — AI-powered code editor (standalone app) downloaded from [cursor.com](https://cursor.com)
+- **Node.js** — Required runtime to install Claude Code via npm, downloaded from [nodejs.org](https://nodejs.org)
+- **Claude Code v2.1.146** — Anthropic's agentic coding CLI tool, installed via npm
 
-## Prerequisites
+## Steps Completed
 
-- A Windows PC
-- An Anthropic account (sign up at [anthropic.com](https://anthropic.com))
-
----
-
-## Step 1: Install Cursor IDE
-
-1. Go to [cursor.com](https://cursor.com)
-2. Download the installer for Windows
-3. Run the installer and follow the on-screen steps
-
----
-
-## Step 2: Install Node.js
-
-Claude Code requires Node.js to install via npm.
-
-1. Go to [nodejs.org](https://nodejs.org)
-2. Download the **LTS** version (recommended)
-3. Run the installer and click through the steps
-4. Restart your computer after installation
-
----
-
-## Step 3: Fix PowerShell Execution Policy (Windows Only)
-
-Windows blocks npm scripts by default. You need to allow them first.
-
-1. Open the terminal inside Cursor using **Ctrl+`** (backtick)
-2. Run this command:
+1. Downloaded and installed **Cursor IDE** from [cursor.com](https://cursor.com)
+2. Attempted to find Claude Code in Cursor's Marketplace — not listed there
+3. Opened the built-in PowerShell terminal inside Cursor (`Ctrl+backtick`)
+4. Installed Claude Code via the terminal using npm:
    ```
-   Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+   npm install -g @anthropic-ai/claude-code
    ```
-3. When prompted, type **Y** and press **Enter**
+5. Launched Claude Code by running `claude` in the terminal
+6. Selected a terminal theme and completed the setup wizard
 
----
+## Issues Encountered & How I Solved Them
 
-## Step 4: Install Claude Code
+### Issue 1: Claude Code not in Cursor Marketplace
+- **Problem:** Searching "Claude Code" in Cursor's Marketplace returned no results
+- **Solution:** Installed Claude Code via the terminal using npm instead
 
-In the same terminal, run:
+### Issue 2: Node.js / npm not installed
+- **Problem:** Running `npm install` gave the error: *"npm is not recognized as the name of a cmdlet"*
+- **Solution:** Downloaded and installed Node.js LTS from [nodejs.org](https://nodejs.org), then restarted the terminal
 
-```
-npm install -g @anthropic-ai/claude-code
-```
-
-Wait for it to finish — it should say "added 2 packages".
-
----
-
-## Step 5: Launch Claude Code
-
-1. In the terminal, run:
-   ```
-   claude
-   ```
-2. Select your preferred theme (e.g. Dark mode)
-3. Sign in with your Anthropic account when prompted
-4. Claude Code is now running inside Cursor!
-
----
-
-## Troubleshooting
-
-| Problem | Solution |
-|---|---|
-| `npm` is not recognized | Install Node.js from [nodejs.org](https://nodejs.org) and restart the terminal |
-| `UnauthorizedAccess` error | Run `Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned` |
-| Claude Code not found in Cursor Marketplace | Install via terminal using npm (see Step 4) |
-
----
-
-## Notes
-
-- Claude Code is **not** available in Cursor's built-in Marketplace — it must be installed via the terminal
-- These instructions are for **Windows**. Mac/Linux users do not need the PowerShell execution policy fix
+### Issue 3: PowerShell Execution Policy blocked npm
+- **Problem:** After installing Node.js, npm still failed with a `PSSecurityException / UnauthorizedAccess` error due to Windows PowerShell's script execution policy
+- **Solution:** Ran the following command to allow scripts for the current user:
+  ```
+  Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+  ```
+  Then re-ran the npm install command successfully
